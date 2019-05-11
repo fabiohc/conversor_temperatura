@@ -37,11 +37,12 @@ class _HomeState extends State<Home> {
       ],
     );
 
-    Icon icon = Icon(
+    /*Icon icon = Icon(
       Icons.wb_sunny,
       size: 120,
       color: Colors.yellow,
-    );
+    );*/
+    Image imgLogo = Image.asset("assets/images/logo.png",height: 120,width: 120,);
 
     TextStyle styleDecoration =
         TextStyle(color: Colors.blueAccent, fontSize: 20);
@@ -67,7 +68,7 @@ class _HomeState extends State<Home> {
       child: containerBtn,
     );
 
-    TextField tempCelsius = TextField(
+    TextFormField tempCelsius = TextFormField(
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         labelText: "Temperatura em graus Celsius",
@@ -76,14 +77,14 @@ class _HomeState extends State<Home> {
       textAlign: TextAlign.center,
       style: styleField,
       controller: celsiusController,
-      /* validador: (value){
+       validator: (value){
         if (value.isEmpty){
           return "Informe um valor";
         }
-      },*/
+      },
     );
 
-    TextField tempFahreheit = TextField(
+    TextFormField tempFahreheit = TextFormField(
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         labelText: "Temperatura em graus Fahreheit",
@@ -92,16 +93,18 @@ class _HomeState extends State<Home> {
       textAlign: TextAlign.center,
       style: styleField,
       controller: fahrenheitController,
-      /*validador: (value){
+     validator: (value){
           if (value.isEmpty){
             return "Informe um valor";
           }
-        },*/
+        },
     );
 
     Column column = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[icon, tempCelsius, tempFahreheit, padding],
+      children: <Widget>[
+        imgLogo, tempCelsius, tempFahreheit, padding
+      ],
     );
 
     Form form = Form(child: column, key: _formKey);
