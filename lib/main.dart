@@ -10,9 +10,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  TextEditingController celsiusController = TextEditingController();
+  TextEditingController fahrenheitController = TextEditingController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    
+
+    void _reserFields(){
+      celsiusController.text = "";
+      fahrenheitController.text = "";
+    }
+
+    void _converter(){
+      double celsius = double.parse(celsiusController.text);
+      double fahrenheit = celsius * 1.8 + 32.0;
+      fahrenheitController.text = fahrenheit.toStringAsFixed(4);
+    }
+
     AppBar appBar = AppBar(
       
       title: Text("Conversor de Temperatura"),
@@ -21,7 +36,7 @@ class _HomeState extends State<Home> {
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.refresh),
-          onPressed: (){},)
+          onPressed: _reserFields,),
       ],
     );
 
@@ -30,8 +45,9 @@ class _HomeState extends State<Home> {
     TextStyle styleDecoration = TextStyle(color: Colors.blueAccent,fontSize: 20);
     TextStyle styleField = TextStyle(color: Colors.blueAccent);
 
+
     RaisedButton raisedButton = RaisedButton(
-        onPressed: (){},
+        onPressed: _converter,
       child: Text("Cacular"),
       color: Colors.blueAccent,
     );
@@ -41,20 +57,40 @@ class _HomeState extends State<Home> {
       child: raisedButton,
     );
 
-    TextField tempCelsius = TextField(keyboardType: TextInputType.number,
-    decoration: InputDecoration(labelText: "Temperatura em graus Celsius"),
-      textAlign: TextAlign.center,
+    Padding padding = Padding(padding: EdgeInsets.only(top: 20.0),
+    child: containerBtn,
     );
+
+    TextField tempCelsius = TextField(keyboardType: TextInputType.number,
+    decoration: InputDecoration(
+      labelText: "Temperatura em graus Celsius",
+      labelStyle : styleDecoration,
+    ),
+    textAlign: TextAlign.center,
+    style: styleField,
+    controller: celsiusController,
+    );
+
     TextField tempFahreheit = TextField(keyboardType: TextInputType.number,
-      decoration: InputDecoration(labelText: "Temperatura em graus Fahreheit"),
+      decoration: InputDecoration(
+          labelText: "Temperatura em graus Fahreheit",
+      labelStyle: styleDecoration,
+      ),
       textAlign: TextAlign.center,
+      style: styleField,
+      controller: fahrenheitController,
     );
 
     Column column = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        icon, tempCelsius, tempFahreheit,containerBtn
+        icon, tempCelsius, tempFahreheit,padding
       ],
+    );
+
+    Form form = Form(
+        child: column,
+        key: _formKey
     );
 
     SingleChildScrollView singleChildScrollView = SingleChildScrollView(
