@@ -53,13 +53,14 @@ class _HomeState extends State<Home> {
         if (_formKey.currentState.validate()) {
           _converter();
         }
+        FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Text("Cacular"),
       color: Colors.blueAccent,
     );
 
     Container containerBtn = Container(
-      height: 200.0,
+      height: 50.0,
       child: raisedButton,
     );
 
@@ -71,39 +72,43 @@ class _HomeState extends State<Home> {
     TextFormField tempCelsius = TextFormField(
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
-        labelText: "Temperatura em graus Celsius",
-        labelStyle: styleDecoration,
+        labelText: "Graus Celsius",
+        labelStyle: TextStyle(color: Colors.black,fontSize: 20),
+        border: OutlineInputBorder(),
+          suffixText: "ºC"
       ),
       textAlign: TextAlign.center,
       style: styleField,
       controller: celsiusController,
-       validator: (value){
-        if (value.isEmpty){
+      validator: (value){
+        if(value.isEmpty){
           return "Informe um valor";
         }
       },
-    );
+      );
 
     TextFormField tempFahreheit = TextFormField(
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
-        labelText: "Temperatura em graus Fahreheit",
-        labelStyle: styleDecoration,
+        labelText: "Graus Fahreheit",
+        labelStyle: TextStyle(color: Colors.black,fontSize: 20),
+        border: OutlineInputBorder(),
+        suffixText: "ºF"
       ),
       textAlign: TextAlign.center,
       style: styleField,
       controller: fahrenheitController,
-     validator: (value){
-          if (value.isEmpty){
-            return "Informe um valor";
-          }
-        },
-    );
+      validator: (value){
+        if(value.isEmpty){
+          return "Informe um valor";
+        }
+      },
+     );
 
     Column column = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        imgLogo, tempCelsius, tempFahreheit, padding
+        imgLogo, tempCelsius,Divider(), tempFahreheit, padding
       ],
     );
 
